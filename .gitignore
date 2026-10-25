@@ -1,0 +1,7 @@
+__pycache__/
+.ipynb_checkpoints/
+.env
+.venv/
+venv/
+dataset/Dataset.csv
+dataset/engineered_restaurant_data.csv
