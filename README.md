@@ -153,7 +153,7 @@ No engineered feature uses `Aggregate rating`, `Rating color`, `Rating text` or 
 #### Task 3: Geospatial Analysis
 **Purpose:** Explore where restaurants are located and whether coordinates relate to ratings.
 
-**Analysis performed:** coordinate validation; restaurant counts by country code and city; a longitude/latitude scatter plot coloured by rating; Pearson correlation between coordinates and rating; average rating for the top-10 cities by record count. The notebook also contains an interactive Folium map for a 2,500-record sample, but Folium was not installed when the notebook was run, so the map was not produced (the output shows an installation hint).
+**Analysis performed:** coordinate validation; restaurant counts by country code and city; a longitude/latitude scatter plot coloured by rating; Pearson correlation between coordinates and rating; average rating for the top-10 cities by record count. The notebook contains code for an interactive Folium map using a deterministic sample of up to 2,500 records. Install dependencies from `requirements.txt` and re-run the map cell. Map tiles require internet access; if tiles do not load, markers may render on a blank background.
 
 ### Level 2 — Feature Analysis
 
@@ -353,14 +353,14 @@ Open a notebook and use *Run → Run All Cells*.
 
 - **Single, geographically skewed dataset.** Country code 1 accounts for 8,652 of 9,551 records (about 90.6%), and a few Delhi-area cities dominate the city counts. Results for other countries rest on very small samples.
 - **Unrated restaurants are handled differently across levels.** Level 1 statistics include the 2,148 zero ratings; Levels 2 and 3 exclude them. The two sets of averages are therefore not directly comparable.
-- **Placeholder coordinates in Level 1 Task 3.** Level 3 identifies 499 rows with a zero longitude or latitude that behave as placeholders (excluded from the Level 3 maps and treated as missing in the model). Level 1 Task 3 only checks that coordinates lie within valid bounds, so these rows remain in its scatter plot and in the reported coordinate–rating correlations. Those correlations should be read with that in mind.
+- **Placeholder coordinates.** 499 rows have a zero latitude or longitude. The revised Level 1 Task 3 excludes these rows from geographic summaries, maps and coordinate–rating correlations. Re-run that notebook to refresh its saved outputs and figures.
 - **Country names are an assumption.** The dataset provides only `Country Code`. The Level 3 notebooks map codes to names with a dictionary written inside the notebooks; this mapping is not supplied by the dataset.
 - **Mixed currencies.** `Average Cost for two` is in local currencies, so its raw descriptive statistics (Level 1 Task 2) mix currencies. Level 3 uses a country-relative cost instead.
 - **`Votes` is not a pre-launch signal.** It dominates the predictive model; performance without it is noticeably lower (test R² 0.551).
 - **Overfitting and validation scope.** The tuned Random Forest shows a large gap between training and cross-validated R², and results come from one random 80/20 split plus cross-validation on this dataset only. There is no external validation.
 - **Association, not causation.** Differences by cuisine, price range, table booking or location are observational. Cuisine groups overlap because multi-cuisine restaurants count toward each cuisine they list.
 - **Rating colour is not an independent variable.** It is a direct bucketing of the rating, so "the colour with the highest rating" follows from its definition.
-- **Interactive map not generated.** Folium was unavailable when Level 1 Task 3 was run.
+- **Interactive map depends on internet access.** Folium is listed in `requirements.txt`; external map tiles may still fail to load in restricted or offline environments.
 - **Notebook execution does not guarantee analytical correctness.** The outputs document what the code produced; they have not been independently audited.
 
 ---
